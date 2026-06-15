@@ -125,7 +125,21 @@ ul, ol { padding-left: 20px; }
 li { margin: 3px 0; color: #ccc !important; }
 </style>
 """
-        return f"{style}\n{html_body}"
+        return f"{style}\n{self._LEGEND_HTML}\n{html_body}"
+
+    _LEGEND_HTML = """
+<div style="background:#1a1a2e;border:1px solid #e94560;border-radius:8px;padding:12px;margin:12px 0;font-size:13px;color:#ccc;">
+<div style="font-weight:700;color:#e94560;margin-bottom:6px;">📋 信号说明</div>
+<table style="width:100%;border-collapse:collapse;font-size:12px;">
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">💚 ≥80分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#4caf50">强烈买入</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">趋势强劲，可积极入场</td></tr>
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">🟢 65-79分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#4caf50">买入</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">多头趋势，可择机介入</td></tr>
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">🟡 55-64分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#ffc107">持有</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">趋势尚可，持仓不动</td></tr>
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">⚪ 45-54分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#9e9e9e">观望</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">不确定，等信号明确</td></tr>
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">🟠 35-44分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#ff9800">减仓</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">趋势转弱，适当减仓</td></tr>
+<tr><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;">🔴 &lt;35分</td><td style="background:transparent!important;color:#ccc!important;padding:3px 6px;"><b style="color:#f44336">卖出</b></td><td style="background:transparent!important;color:#aaa!important;padding:3px 6px;">风险较大，建议离场</td></tr>
+</table>
+</div>
+"""
 
     def _send_pushplus_message(
         self,
