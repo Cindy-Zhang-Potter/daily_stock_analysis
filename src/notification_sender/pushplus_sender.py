@@ -113,7 +113,7 @@ h3 { font-size: 15px; color: #0f3460; margin-top: 12px; }
 table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
 th { background: #16213e; color: #fff; padding: 8px 6px; text-align: left; font-weight: 600; }
 td { padding: 7px 6px; border-bottom: 1px solid #eee; }
-tr:nth-child(even) { background: #f8f9fa; }
+tr:nth-child(even) { background: #fff; }
 blockquote { border-left: 3px solid #e94560; background: #fff5f5; margin: 10px 0; padding: 8px 12px; font-size: 14px; color: #555; }
 code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 13px; }
 pre { background: #1a1a2e; color: #eee; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
