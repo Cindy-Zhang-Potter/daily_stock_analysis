@@ -92,6 +92,38 @@ class PushplusSender:
             logger.error(f"发送 PushPlus 消息失败: {e}")
             return False
 
+    def _md_to_html(self, content: str) -> str:
+        """Convert markdown to styled HTML for WeChat rendering."""
+        try:
+            import markdown2
+            html_body = markdown2.markdown(
+                content,
+                extras=["tables", "fenced-code-blocks", "break-on-newline"],
+            )
+        except Exception:
+            html_body = content.replace("\n", "<br>")
+
+        # Inline styles for WeChat (no external CSS support)
+        style = """
+<style>
+body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; color: #333; line-height: 1.7; padding: 0; margin: 0; }
+h1 { font-size: 20px; color: #1a1a2e; border-bottom: 2px solid #e94560; padding-bottom: 6px; margin-top: 18px; }
+h2 { font-size: 17px; color: #16213e; margin-top: 16px; border-left: 3px solid #e94560; padding-left: 8px; }
+h3 { font-size: 15px; color: #0f3460; margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+th { background: #16213e; color: #fff; padding: 8px 6px; text-align: left; font-weight: 600; }
+td { padding: 7px 6px; border-bottom: 1px solid #eee; }
+tr:nth-child(even) { background: #f8f9fa; }
+blockquote { border-left: 3px solid #e94560; background: #fff5f5; margin: 10px 0; padding: 8px 12px; font-size: 14px; color: #555; }
+code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 13px; }
+pre { background: #1a1a2e; color: #eee; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+hr { border: none; border-top: 1px solid #ddd; margin: 14px 0; }
+ul, ol { padding-left: 20px; }
+li { margin: 3px 0; }
+</style>
+"""
+        return f"{style}\n{html_body}"
+
     def _send_pushplus_message(
         self,
         api_url: str,
@@ -100,11 +132,12 @@ class PushplusSender:
         *,
         timeout_seconds: Optional[float] = None,
     ) -> bool:
+        html_content = self._md_to_html(content)
         payload = {
             "token": self._pushplus_token,
             "title": title,
-            "content": content,
-            "template": "markdown",
+            "content": html_content,
+            "template": "html",
         }
 
         if self._pushplus_topic:
