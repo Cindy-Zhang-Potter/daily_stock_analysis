@@ -104,22 +104,25 @@ class PushplusSender:
             html_body = content.replace("\n", "<br>")
 
         # Inline styles for WeChat (no external CSS support)
+        # Use !important to override WeChat/PushPlus dark mode CSS injection
         style = """
 <style>
-body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; color: #333; line-height: 1.7; padding: 0; margin: 0; }
-h1 { font-size: 20px; color: #1a1a2e; border-bottom: 2px solid #e94560; padding-bottom: 6px; margin-top: 18px; }
-h2 { font-size: 17px; color: #16213e; margin-top: 16px; border-left: 3px solid #e94560; padding-left: 8px; }
-h3 { font-size: 15px; color: #0f3460; margin-top: 12px; }
+body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.7; padding: 0; margin: 0; }
+h1 { font-size: 20px; color: #e94560 !important; border-bottom: 2px solid #e94560; padding-bottom: 6px; margin-top: 18px; }
+h2 { font-size: 17px; color: #e94560 !important; margin-top: 16px; border-left: 3px solid #e94560; padding-left: 8px; }
+h3 { font-size: 15px; color: #e94560 !important; margin-top: 12px; }
 table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
-th { background: #16213e; color: #fff; padding: 8px 6px; text-align: left; font-weight: 600; }
-td { padding: 7px 6px; border-bottom: 1px solid #eee; }
-tr:nth-child(even) { background: #fff; }
-blockquote { border-left: 3px solid #e94560; background: #fff5f5; margin: 10px 0; padding: 8px 12px; font-size: 14px; color: #555; }
-code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 13px; }
-pre { background: #1a1a2e; color: #eee; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
-hr { border: none; border-top: 1px solid #ddd; margin: 14px 0; }
+th, td, tr { background: #16213e !important; color: #eee !important; }
+th { color: #fff !important; padding: 8px 6px; text-align: left; font-weight: 600; border-bottom: 2px solid #e94560 !important; }
+td { padding: 7px 6px; border-bottom: 1px solid #2d2d44 !important; }
+tr:nth-child(even) { background: #16213e !important; }
+tr:nth-child(odd) { background: #16213e !important; }
+blockquote { border-left: 3px solid #e94560 !important; background: #1a1a2e !important; color: #ccc !important; margin: 10px 0; padding: 8px 12px; font-size: 14px; }
+code { background: #0d0d1a !important; color: #e94560 !important; padding: 1px 4px; border-radius: 3px; font-size: 13px; }
+pre { background: #0d0d1a !important; color: #eee !important; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+hr { border: none; border-top: 1px solid #2d2d44 !important; margin: 14px 0; }
 ul, ol { padding-left: 20px; }
-li { margin: 3px 0; }
+li { margin: 3px 0; color: #ccc !important; }
 </style>
 """
         return f"{style}\n{html_body}"
